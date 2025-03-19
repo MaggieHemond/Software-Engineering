@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import PortfolioPage from './pages/PortfolioPage';
+import StocksPage from './pages/StocksPage';
+import SettingsPage from './pages/SettingsPage';
+import AppBar from './components/AppBar';
 
 function App() {
   // State to hold the API response
@@ -26,7 +32,17 @@ function App() {
       <button onClick={fetchStockData}>Fetch Stock Data</button>
         {stockData ? JSON.stringify(stockData, null, 2) : 'No data yet.'}
       </div>
+      <Router>
+        <AppBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/stocks" element={<StocksPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+        </Routes>
+      </Router>
     </div>
+    
   );
 }
 
