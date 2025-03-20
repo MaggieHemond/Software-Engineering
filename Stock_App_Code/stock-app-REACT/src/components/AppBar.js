@@ -18,10 +18,10 @@ const AppBar = () => {
             navigate("/");
             break;
           case 1:
-            navigate("/portfolio");
+            navigate("/stocks");
             break;
           case 2:
-            navigate("/stocks");
+            navigate("/portfolio");
             break;
           case 3:
             navigate("/settings");
@@ -40,8 +40,8 @@ const AppBar = () => {
       }}
     >
       <BottomNavigationAction label="Home" icon={<Home />} />
-      <BottomNavigationAction label="Portfolio" icon={<BarChart />} />
       <BottomNavigationAction label="Stocks" icon={<ShowChart />} />
+      <BottomNavigationAction label="Portfolio" icon={<BarChart />} />
       <BottomNavigationAction label="Settings" icon={<Settings />} />
     </BottomNavigation>
   );
