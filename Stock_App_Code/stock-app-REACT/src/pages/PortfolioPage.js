@@ -1,7 +1,8 @@
 import React from "react";
-import { Grid, Card, CardContent, Typography, Button } from "@mui/material";
+import { Grid, Card, CardContent, Typography, Button, IconButton } from "@mui/material";
 import { usePortfolio } from "../components/PortfolioContext";  // Use the context
 import { Link } from "react-router-dom"; // Import Link for navigation
+import InfoIcon from "@mui/icons-material/Info";  // Import Info Icon
 
 function PortfolioPage() {
   const { portfolio } = usePortfolio();  // Get portfolio from context
@@ -23,6 +24,13 @@ function PortfolioPage() {
                   <Typography variant="body2" color="textSecondary">
                     ${stock.current_price}
                   </Typography>
+                  <div style={{ marginTop: "10px", display: "flex", justifyContent: "space-between" }}>
+                    <Link to={`/info/${stock.symbol}`}>
+                      <IconButton color="primary">
+                        <InfoIcon />
+                      </IconButton>
+                    </Link>
+                  </div>
                 </CardContent>
               </Card>
             </Grid>
