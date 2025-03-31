@@ -1,9 +1,25 @@
 p {
     font-size: 20px;
+    text-align: center;
+    font-family: Garamond;
 }
 h1{
     font-size: 45px;
+    text-align: center;
+    font-family: Garamond;
 }
 h2{
-    font-size: 35px;
+    font-size: 30px;
+    text-align: center;
+    font-family: Garamond;
 }
+
+.light {
+    color: black;
+    background-color: white;
+  }
+  
+.dark {
+    color: white;
+    background-color: black;
+  }
