@@ -1,9 +1,46 @@
+/* General text styles */
 p {
     font-size: 20px;
 }
-h1{
+h1 {
     font-size: 45px;
 }
-h2{
+h2 {
     font-size: 35px;
+}
+
+/* Container for the whole homepage */
+.homepage-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 5rem;  /* TODO: Adjust bottom padding once appbar layout is finalized */
+}
+
+/* Flex container for the stock cards */
+.stock-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Individual stock card styling */
+.stock-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1 1 calc(33% - 40px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stock-card h3 {
+    margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .stock-card {
+    flex: 1 1 100%;
+  }
 }
