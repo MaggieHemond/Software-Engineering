@@ -1,9 +1,13 @@
 /* General text styles */
 p {
     font-size: 20px;
+    text-align: center;
+    font-family: Garamond;
 }
 h1 {
     font-size: 45px;
+    text-align: center;
+    font-family: Garamond;
 }
 h2 {
     font-size: 35px;
