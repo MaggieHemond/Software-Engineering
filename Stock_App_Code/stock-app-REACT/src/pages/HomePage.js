@@ -15,7 +15,7 @@ function HomePage() {
 
   useEffect(() => {
     const apiUrl = `https://stock-api-2rul.onrender.com/stock?symbol=${stocks.join(",")}`;
-    console.log("Requesting URL:", apiUrl); // Debug: print the URL check console via f12 to see if it looks right
+    console.log("Requesting URL:", apiUrl); // Debug: print the URL
 
     fetch(apiUrl)
       .then((response) => response.json())
@@ -67,7 +67,6 @@ function HomePage() {
       </p>
     </div>
   );
-  
 }
 
 export default HomePage;
