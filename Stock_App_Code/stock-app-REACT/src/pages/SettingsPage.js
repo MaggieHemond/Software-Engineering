@@ -1,16 +1,19 @@
 import React from 'react';
 import { Button} from "@mui/material";
 import '../stylesheets/HomePage.css';
+import '../stylesheets/Light_Dark.css';
 
-//https://www.geeksforgeeks.org/javascript-adding-a-class-name-to-the-element/?ref=ml_lbp
+//https://www.w3schools.com/howto/howto_js_toggle_dark_mode.asp
 
 function SettingsPage() {
+  
   const changeClass = () => {
-    var a = document.getElementById('myDiv')
-    a.classList.toggle("dark")
+    var a = document.body;
+    a.classList.toggle("dark");
   }
+  
   return (
-    <div class="light" id="myDiv">
+    <div> 
       <h1>Settings</h1>
       <p>Customize your app experience.</p>
   
