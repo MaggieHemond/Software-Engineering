@@ -1,32 +1,52 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 
-// Create the context
 const PortfolioContext = createContext();
 
-// Create the context provider
-export const PortfolioProvider = ({ children }) => {
+export function PortfolioProvider({ children }) {
   const [portfolio, setPortfolio] = useState([]);
+  const [balance, setBalance] = useState(10000); // Initial fake money
 
-  // Function to add a stock to the portfolio
-  const addStockToPortfolio = (stock) => {
-    setPortfolio((prevPortfolio) => [...prevPortfolio, stock]);
+  // Add or update a stock in the portfolio
+  const addStockToPortfolio = (symbol, shares, pricePerShare) => {
+    setPortfolio((prevPortfolio) => {
+      const existingStock = prevPortfolio.find((stock) => stock.symbol === symbol);
+
+      if (existingStock) {
+        return prevPortfolio.map((stock) =>
+          stock.symbol === symbol
+            ? {
+                ...stock,
+                shares: stock.shares + shares,
+                averagePrice:
+                  (stock.shares * stock.averagePrice + shares * pricePerShare) / (stock.shares + shares),
+              }
+            : stock
+        );
+      } else {
+        return [...prevPortfolio, { symbol, shares, averagePrice: pricePerShare }];
+      }
+    });
   };
 
-  // Function to remove a stock from the portfolio
-  const removeStocksFromPortfolio = (stocksToRemove) => {
-    setPortfolio((prevPortfolio) => 
-      prevPortfolio.filter((stock) => !stocksToRemove.includes(stock.symbol))
-    );
+  // Update balance after a purchase
+  const updateBalance = (newBalance) => {
+    setBalance(newBalance);
   };
 
   return (
-    <PortfolioContext.Provider value={{ portfolio, addStockToPortfolio, removeStocksFromPortfolio }}>
+    <PortfolioContext.Provider
+      value={{
+        portfolio,
+        addStockToPortfolio,
+        balance,
+        updateBalance,
+      }}
+    >
       {children}
     </PortfolioContext.Provider>
   );
-};
+}
 
-// Hook to use the portfolio context
-export const usePortfolio = () => {
+export function usePortfolio() {
   return useContext(PortfolioContext);
-};
+}

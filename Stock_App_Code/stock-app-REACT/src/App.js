@@ -8,6 +8,7 @@ import StocksPage from "./pages/StocksPage";
 import SettingsPage from "./pages/SettingsPage";
 import EditPortfolioPage from "./pages/EditPortfolioPage";
 import InfoPage from "./pages/InfoPage";
+import BuyPage from "./pages/BuyPage";
 import AppBar from "./components/AppBar";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/edit-portfolio" element={<EditPortfolioPage />} />
           <Route path="/info/:stockSymbol" element={<InfoPage />} />
+          <Route path="/buy/:symbol" element={<BuyPage />} />
         </Routes>
       </Router>
     </PortfolioProvider>

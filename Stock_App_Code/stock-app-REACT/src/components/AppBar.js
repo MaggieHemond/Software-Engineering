@@ -1,11 +1,16 @@
 import React from "react";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { Home, BarChart, ShowChart, Settings } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AppBar = () => {
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (location.pathname.includes("/buy")) {
+    return null;
+  }
 
   return (
     <BottomNavigation
