@@ -4,6 +4,7 @@ import '../stylesheets/HomePage.css';
 import '../stylesheets/Light_Dark.css';
 
 //https://www.w3schools.com/howto/howto_js_toggle_dark_mode.asp
+// onload={changeClass}
 
 function SettingsPage() {
   
@@ -19,7 +20,10 @@ function SettingsPage() {
   
       <h2>Light/Dark Mode</h2>
       
-      <Button onClick={changeClass}>Mode</Button>
+      <Button onClick={changeClass}
+      variant="contained"
+      color="primary"
+      >Mode</Button>
       
       <h2>FAQ</h2>
       <p>If there is a problem loading a stock?</p>
