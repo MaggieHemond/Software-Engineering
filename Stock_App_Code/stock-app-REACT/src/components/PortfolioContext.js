@@ -18,7 +18,8 @@ export function PortfolioProvider({ children }) {
                 ...stock,
                 shares: stock.shares + shares,
                 averagePrice:
-                  (stock.shares * stock.averagePrice + shares * pricePerShare) / (stock.shares + shares),
+                  (stock.shares * stock.averagePrice + shares * pricePerShare) /
+                  (stock.shares + shares),
               }
             : stock
         );
@@ -26,6 +27,13 @@ export function PortfolioProvider({ children }) {
         return [...prevPortfolio, { symbol, shares, averagePrice: pricePerShare }];
       }
     });
+  };
+
+  // Remove one or more stocks from the portfolio
+  const removeStocksFromPortfolio = (symbolsToRemove) => {
+    setPortfolio((prevPortfolio) =>
+      prevPortfolio.filter((stock) => !symbolsToRemove.includes(stock.symbol))
+    );
   };
 
   // Update balance after a purchase
@@ -38,6 +46,7 @@ export function PortfolioProvider({ children }) {
       value={{
         portfolio,
         addStockToPortfolio,
+        removeStocksFromPortfolio, // 👈 importante
         balance,
         updateBalance,
       }}
