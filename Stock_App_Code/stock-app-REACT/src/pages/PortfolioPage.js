@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Card, CardContent, Typography, Button, IconButton } from "@mui/material";
+import { Grid, Card, CardContent, Typography, Button, IconButton, CircularProgress } from "@mui/material";
 import { usePortfolio } from "../components/PortfolioContext";
 import { Link } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
@@ -7,42 +7,49 @@ import InfoIcon from "@mui/icons-material/Info";
 function PortfolioPage() {
   const { portfolio } = usePortfolio();
   const [updatedPortfolio, setUpdatedPortfolio] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchPrices() {
-      const updated = await Promise.all(
-        portfolio.map(async (stock) => {
-          try {
-            const res = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stock.symbol}`);
-            const data = await res.json();
-            const price = data.quoteResponse.result[0]?.regularMarketPrice;
+    const fetchUpdatedPrices = async () => {
+      if (portfolio.length === 0) {
+        setLoading(false);
+        return;
+      }
 
-            return {
-              ...stock,
-              current_price: price ?? stock.averagePrice,
-            };
-          } catch (error) {
-            console.error("Error fetching price for", stock.symbol, error);
-            return {
-              ...stock,
-              current_price: stock.averagePrice,
-            };
-          }
-        })
-      );
+      const symbols = portfolio.map(stock => stock.symbol).join(",");
+      try {
+        const response = await fetch(
+          `http://localhost:5000/stock?symbol=yfinance:${symbols}`
+        );
+        const data = await response.json();
 
-      setUpdatedPortfolio(updated);
-    }
+        const merged = portfolio.map(stock => {
+          const fetched = data.find(item => item.symbol === stock.symbol);
+          return {
+            ...stock,
+            current_price: fetched?.current_price ?? 0,
+            name: fetched?.name ?? stock.name
+          };
+        });
 
-    if (portfolio.length > 0) {
-      fetchPrices();
-    }
+        setUpdatedPortfolio(merged);
+      } catch (error) {
+        console.error("Error fetching updated stock prices:", error);
+        setUpdatedPortfolio(portfolio); // fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUpdatedPrices();
   }, [portfolio]);
 
   return (
     <div style={{ textAlign: "center", marginTop: "20px" }}>
       <h1>Your Portfolio</h1>
-      {updatedPortfolio.length === 0 ? (
+      {loading ? (
+        <CircularProgress />
+      ) : updatedPortfolio.length === 0 ? (
         <p>No stocks in your portfolio yet.</p>
       ) : (
         <Grid container spacing={2} style={{ marginTop: "30px" }}>
@@ -54,7 +61,7 @@ function PortfolioPage() {
                     {stock.name} ({stock.symbol})
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    Current Price: ${stock.current_price?.toFixed(2)}
+                    Current Price: ${stock.current_price}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
                     Shares: {stock.shares}

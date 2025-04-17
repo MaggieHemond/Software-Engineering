@@ -4,7 +4,6 @@ import '../stylesheets/HomePage.css';
 function HomePage() {
   const [stocksData, setStocksData] = useState([]);
 
-  // Helper function to calculate percent change from the history array
   const stocks_percent_change = (stock) => {
     if (!stock.history || stock.history.length < 2) return null;
     const firstClose = stock.history[0].close;
@@ -14,29 +13,27 @@ function HomePage() {
   };
 
   useEffect(() => {
-    const apiUrl = `https://stock-api-2rul.onrender.com/stock?symbol=${stocks.join(",")}`;
-    console.log("Requesting URL:", apiUrl); // Debug: print the URL
-
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Received data:", data); // Debug: print the received data
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://stock-api-2rul.onrender.com/stock?symbol=yfinance:${stocks.join(",")}`);
+        const data = await response.json();
         setStocksData(data);
-      })
-      .catch((error) => console.error("Error fetching stock data:", error));
+      } catch (error) {
+        console.error("Error fetching stock data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  // Sort stocks by percent change in descending order (best performance first)
   const sortedStocks = stocksData.slice().sort((a, b) => {
-    const aChange = parseFloat(stocks_percent_change(a));
-    const bChange = parseFloat(stocks_percent_change(b));
-    return bChange - aChange;
+    return parseFloat(stocks_percent_change(b)) - parseFloat(stocks_percent_change(a));
   });
 
   return (
     <div className="homepage-container">
       <h1>Home: Welcome to the Stock App!</h1>
-      
+
       <h2>5 Cool Stocks:</h2>
       {stocksData.length === 0 ? (
         <p>Loading stock data...</p>
@@ -44,26 +41,18 @@ function HomePage() {
         <div className="stock-cards-container">
           {sortedStocks.map((stock, index) => (
             <div key={stock.symbol} className="stock-card">
-              <h3>
-                {index + 1}. {stock.name} ({stock.symbol})
-              </h3>
+              <h3>{index + 1}. {stock.name} ({stock.symbol})</h3>
               <p><strong>Current Price:</strong> ${stock.current_price}</p>
               <p><strong>Date:</strong> {stock.date}</p>
-              <p>
-                <strong>30-Day Change:</strong> {stocks_percent_change(stock)}%
-              </p>
+              <p><strong>30-Day Change:</strong> {stocks_percent_change(stock)}%</p>
             </div>
           ))}
         </div>
       )}
-  
+
       <h2>Description of the Stock Tracking App</h2>
       <p>
-        This is a website that is about adding stocks to your portfolio that give you a good price.
-        There are four pages: this page where you see the top stocks and the description, the Stock page 
-        where you can request to see stocks with their acronym, and then if they have good prices, you add them to your portfolio.
-        The Portfolio page is a page where you can look at all the stocks you have and delete any that aren’t performing well.
-        The Settings page is where you can see and change something.
+        This website helps you build a stock portfolio by analyzing and tracking stock prices. Use the Stocks page to search for specific stocks by symbol, add promising ones to your portfolio, and manage them through the Portfolio page. The Settings page lets you personalize your experience.
       </p>
     </div>
   );
