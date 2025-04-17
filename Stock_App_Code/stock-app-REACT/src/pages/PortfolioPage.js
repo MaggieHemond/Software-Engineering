@@ -19,7 +19,7 @@ function PortfolioPage() {
       const symbols = portfolio.map(stock => stock.symbol).join(",");
       try {
         const response = await fetch(
-          `http://localhost:5000/stock?symbol=yfinance:${symbols}`
+          `https://stock-api-2rul.onrender.com/stock?symbol=yfinance:${symbols}`
         );
         const data = await response.json();
 

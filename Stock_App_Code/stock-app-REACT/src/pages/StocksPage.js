@@ -60,7 +60,7 @@ function StocksPage() {
     if (query.trim() === "") return;
     try {
       const response = await fetch(
-        `https://stock-api-2rul.onrender.com/autocomplete?query=${query}`
+        `https://stock-api-2rul.onrender.com/stock?symbol=autocomplete:${query}`
       );
       const data = await response.json();
 
