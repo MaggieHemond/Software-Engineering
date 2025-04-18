@@ -31,7 +31,7 @@ const BuyPage = () => {
     const fetchStockData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`https://stock-api-2rul.onrender.com/stock?symbol=${symbol}`);
+        const response = await fetch(`https://stock-api-2rul.onrender.com/stock?symbol=yfinance:${symbol}`);
         const data = await response.json();
         setStockData(data[0]);
       } catch (error) {

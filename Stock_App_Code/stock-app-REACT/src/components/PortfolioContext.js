@@ -46,7 +46,7 @@ export function PortfolioProvider({ children }) {
       value={{
         portfolio,
         addStockToPortfolio,
-        removeStocksFromPortfolio, // 👈 importante
+        removeStocksFromPortfolio,
         balance,
         updateBalance,
       }}
