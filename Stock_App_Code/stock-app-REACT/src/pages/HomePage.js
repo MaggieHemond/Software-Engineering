@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/HomePage.css';
+import { Link } from "react-router-dom";
+import {Button} from "@mui/material";
+
 
 function HomePage() {
   const [stocksData, setStocksData] = useState([]);
@@ -30,6 +33,9 @@ function HomePage() {
     return parseFloat(stocks_percent_change(b)) - parseFloat(stocks_percent_change(a));
   });
 
+  
+
+
   return (
     <div className="homepage-container">
       <h1>Home: Welcome to the Stock App!</h1>
@@ -54,6 +60,19 @@ function HomePage() {
       <p>
         This website helps you build a stock portfolio by analyzing and tracking stock prices. Use the Stocks page to search for specific stocks by symbol, add promising ones to your portfolio, and manage them through the Portfolio page. The Settings page lets you personalize your experience.
       </p>
+
+      <h2>Exit out of site</h2>
+      <div class="container">
+      <Link
+        to={"/loginpage"}
+        style={{ textDecoration: "none" }}
+        >
+        <Button variant="contained" color="primary">
+         Log Out
+        </Button>
+      </Link>
+      </div>
+
     </div>
   );
 }

@@ -11,6 +11,9 @@ const AppBar = () => {
   if (location.pathname.includes("/buy")) {
     return null;
   }
+  if (location.pathname.includes("/loginpage")) {
+    return null;
+  }
 
   return (
     <BottomNavigation
