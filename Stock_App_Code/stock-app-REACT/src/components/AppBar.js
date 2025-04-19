@@ -11,9 +11,8 @@ const AppBar = () => {
   if (location.pathname.includes("/buy")) {
     return null;
   }
-  if (location.pathname.includes("/loginpage")) {
-    return null;
-  }
+  if (location.pathname == ("/")) {
+    return null;}
 
   return (
     <BottomNavigation
@@ -23,7 +22,7 @@ const AppBar = () => {
         setValue(newValue);
         switch (newValue) {
           case 0:
-            navigate("/");
+            navigate("/home");
             break;
           case 1:
             navigate("/stocks");

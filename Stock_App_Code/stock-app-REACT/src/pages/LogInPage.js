@@ -8,17 +8,19 @@ function LogInPage() {
   return (
     <div> 
       <h1>Stock Tracking</h1>
+      <p>This is a site that allows you to practice with fake stocks.</p>
+
       <p>Please log in to site.</p>
 
       <p>Contiue as guest to site.</p>
 
       <div class="container">
       <Link
-        to={"/"}
+        to={"/home"}
         style={{ textDecoration: "none" }}
         >
         <Button variant="contained" color="primary">
-         Log In
+         Guest Log In
         </Button>
       </Link>
       </div>

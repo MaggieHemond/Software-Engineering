@@ -64,7 +64,7 @@ function HomePage() {
       <h2>Exit out of site</h2>
       <div class="container">
       <Link
-        to={"/loginpage"}
+        to={"/"}
         style={{ textDecoration: "none" }}
         >
         <Button variant="contained" color="primary">

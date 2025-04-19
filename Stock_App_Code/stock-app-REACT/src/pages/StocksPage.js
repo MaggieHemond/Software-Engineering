@@ -90,6 +90,11 @@ function StocksPage() {
     <div style={{ textAlign: "center", marginTop: "20px" }}>
       <h1>Stock Market</h1>
 
+      <p>
+      Explain how search works:
+      Type one letter,Type out the symbol of the stock
+      </p>
+
       {/* Autocomplete and manual search input */}
       <div>
         <Autocomplete

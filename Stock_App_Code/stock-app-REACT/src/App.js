@@ -18,14 +18,14 @@ function App() {
       <Router>
         <AppBar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LogInPage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/stocks" element={<StocksPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/edit-portfolio" element={<EditPortfolioPage />} />
           <Route path="/info/:stockSymbol" element={<InfoPage />} />
           <Route path="/buy/:symbol" element={<BuyPage />} />
-          <Route path="/loginpage" element={<LogInPage />} />
         </Routes>
       </Router>
     </PortfolioProvider>
