@@ -92,7 +92,7 @@ function StocksPage() {
 
       <p>
       Explain how search works:
-      Type one letter,Type out the symbol of the stock
+      Type one letter, Type out the symbol of the stock
       </p>
 
       {/* Autocomplete and manual search input */}

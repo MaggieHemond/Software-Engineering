@@ -58,12 +58,12 @@ function HomePage() {
 
       <h2>Description of the Stock Tracking App</h2>
       <p>
-        This website helps you build a stock portfolio by analyzing and tracking stock prices. Use the Stocks page to search for specific stocks by symbol, add promising ones to your portfolio, and manage them through the Portfolio page. The Settings page lets you personalize your experience.
+        This website helps you build a stock portfolio by analyzing and tracking stock prices. Use the Stocks page to search for specific stocks by symbol, add promising ones to your portfolio, and manage them through the Portfolio page. The Settings page lets you personalize your experienc on the site.
       </p>
 
       <h2>Exit out of site</h2>
       <div class="container">
-      <Link
+      <Link 
         to={"/"}
         style={{ textDecoration: "none" }}
         >

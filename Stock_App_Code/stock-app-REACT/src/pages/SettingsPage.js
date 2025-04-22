@@ -49,7 +49,7 @@ function SettingsPage() {
       <div class="container">
 
       <div class="dropdown">
-      <span>If there is a problem loading a stock?</span>
+      <span>If there is a problem loading the stocks?</span>
       <div class="dropdown-content">
       <p>There is a window where it resets so be patiant and try again in a three minutes.</p>
       </div> 
@@ -58,7 +58,16 @@ function SettingsPage() {
       <br></br><br></br>
 
       <div class="dropdown">
-      <span>If there is a error on the site?</span>
+      <span>How do I change the font or dark mode on the site?</span>
+      <div class="dropdown-content">
+      <p>Please press the buttons once to have dark mode or bigger font turn on.</p>
+      </div> 
+      </div>
+
+      <br></br><br></br>
+
+      <div class="dropdown">
+      <span>If there is a error on the site, what should I do?</span>
       <div class="dropdown-content">
       <p>Please contact us about how you got that error.</p>
       </div> 

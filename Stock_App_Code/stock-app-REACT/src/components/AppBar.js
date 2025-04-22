@@ -11,7 +11,7 @@ const AppBar = () => {
   if (location.pathname.includes("/buy")) {
     return null;
   }
-  if (location.pathname == ("/")) {
+  if (location.pathname === ("/")) {
     return null;}
 
   return (
@@ -39,6 +39,7 @@ const AppBar = () => {
       }}
       style={{
         position: "fixed",
+        zIndex: 500,
         bottom: 0,
         left: 0,
         width: "100%",

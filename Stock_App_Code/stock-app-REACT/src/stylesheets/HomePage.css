@@ -4,6 +4,7 @@ p {
     font-family: Garamond;
     text-align: center;
     margin: 20px;
+    line-height: 1.5
 }
 h1 {
     font-size: 45px;
@@ -16,6 +17,13 @@ h2 {
     font-family: Garamond;
     text-align: center;
     margin: 20px;
+}
+
+body, html{
+    border-style: solid;
+    border-width: medium;
+    box-sizing: border-box;
+    padding: 20px;
 }
 
 /* Container for the whole homepage */
@@ -36,13 +44,16 @@ h2 {
 
 /* Individual stock card styling */
 .stock-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: #C3ECFF;
+    border: 2px solid #ddd;
+    border-color: black;
     border-radius: 8px;
     padding: 20px;
     flex: 1 1 calc(33% - 40px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
 }
+/*#4169E1 a darker blue
+gradient*/
 
 .stock-card h3 {
     margin-top: 0;
@@ -55,35 +66,33 @@ h2 {
 }
 
 
-
-
-
-
-
-
-
-
-
 .container {
     text-align: center;
+    margin: 10px;
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
+    font-family: Garamond;
   }
   
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: #C3ECFF;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
+    padding: 5px 5px;
+    z-index: 550;
+    font-family: Garamond;
   }
   
 .dropdown:hover .dropdown-content {
     display: block;
+    border-style: solid;
+    border-width: medium;
+    text-align: left;
+    border-radius: 8px;
+    overflow: visible;
   }
-
