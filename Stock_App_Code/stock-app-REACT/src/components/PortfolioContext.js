@@ -4,41 +4,60 @@ const PortfolioContext = createContext();
 
 export function PortfolioProvider({ children }) {
   const [portfolio, setPortfolio] = useState([]);
-  const [balance, setBalance] = useState(10000); // Initial fake money
+  const [balance, setBalance] = useState(10000);
 
-  // Add or update a stock in the portfolio
-  const addStockToPortfolio = (symbol, shares, pricePerShare) => {
+  const addStockToPortfolio = (symbol, shares, pricePerShare, name, current_price) => {
     setPortfolio((prevPortfolio) => {
       const existingStock = prevPortfolio.find((stock) => stock.symbol === symbol);
-
+  
       if (existingStock) {
+        const newShares = existingStock.shares + shares;
+        const newPurchasePrice = (
+          (existingStock.shares * existingStock.purchase_price + shares * pricePerShare) / newShares
+        );
+  
         return prevPortfolio.map((stock) =>
           stock.symbol === symbol
             ? {
                 ...stock,
-                shares: stock.shares + shares,
-                averagePrice:
-                  (stock.shares * stock.averagePrice + shares * pricePerShare) /
-                  (stock.shares + shares),
+                shares: newShares,
+                purchase_price: newPurchasePrice,
+                name,
+                current_price,
               }
             : stock
         );
       } else {
-        return [...prevPortfolio, { symbol, shares, averagePrice: pricePerShare }];
+        return [
+          ...prevPortfolio,
+          {
+            symbol,
+            shares,
+            purchase_price: pricePerShare,
+            name,
+            current_price,
+          },
+        ];
       }
     });
+  };  
+
+  const updateBalance = (value) => {
+    setBalance((prev) => (typeof value === "function" ? value(prev) : value));
   };
 
-  // Remove one or more stocks from the portfolio
-  const removeStocksFromPortfolio = (symbolsToRemove) => {
+  const sellStocks = (symbolsToSell) => {
     setPortfolio((prevPortfolio) =>
-      prevPortfolio.filter((stock) => !symbolsToRemove.includes(stock.symbol))
+      prevPortfolio.filter((stock) => !symbolsToSell.includes(stock.symbol))
     );
   };
 
-  // Update balance after a purchase
-  const updateBalance = (newBalance) => {
-    setBalance(newBalance);
+  const updateStockShares = (symbol, newShares) => {
+    setPortfolio((prevPortfolio) =>
+      prevPortfolio.map((stock) =>
+        stock.symbol === symbol ? { ...stock, shares: newShares } : stock
+      )
+    );
   };
 
   return (
@@ -46,9 +65,10 @@ export function PortfolioProvider({ children }) {
       value={{
         portfolio,
         addStockToPortfolio,
-        removeStocksFromPortfolio,
         balance,
         updateBalance,
+        sellStocks,
+        updateStockShares,
       }}
     >
       {children}

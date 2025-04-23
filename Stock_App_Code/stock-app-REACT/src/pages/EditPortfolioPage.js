@@ -1,82 +1,72 @@
-import React, { useState } from "react";
-import { Button, Checkbox, FormControlLabel, Grid, Typography } from "@mui/material";
-import { usePortfolio } from "../components/PortfolioContext"; // Use the context
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import React, { useEffect, useState } from "react";
+import { usePortfolio } from "../components/PortfolioContext";
+import { CircularProgress } from "@mui/material";
 
 function EditPortfolioPage() {
-  const { portfolio, removeStocksFromPortfolio } = usePortfolio(); // Access portfolio from context
-  const [selectedStocks, setSelectedStocks] = useState([]);
-  const navigate = useNavigate(); // Initialize the navigation hook
+  const { portfolio } = usePortfolio();
+  const [stockData, setStockData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Function to toggle selection of a stock
-  const handleStockSelection = (stockSymbol) => {
-    setSelectedStocks((prevSelected) => {
-      if (prevSelected.includes(stockSymbol)) {
-        return prevSelected.filter((symbol) => symbol !== stockSymbol); // Deselect the stock
-      } else {
-        return [...prevSelected, stockSymbol]; // Select the stock
+  useEffect(() => {
+    const fetchStockData = async () => {
+      if (portfolio.length === 0) {
+        setLoading(false);
+        return;
       }
-    });
-  };
 
-  // Function to remove selected stocks
-  const handleAcceptChanges = () => {
-    removeStocksFromPortfolio(selectedStocks); // Remove stocks from the portfolio
-    setSelectedStocks([]); // Reset selected stocks
+      try {
+        const symbols = portfolio.map((stock) => stock.symbol).join(",");
+        const response = await fetch(
+          `https://stock-api-2rul.onrender.com/stock?symbol=yfinance:${symbols}`
+        );
 
-    // Redirect back to the Portfolio page after removal
-    navigate("/portfolio");
-  };
+        if (!response.ok) {
+          throw new Error("Failed to fetch stock data");
+        }
 
-  // Function to cancel changes and return to Portfolio page without removing any stocks
-  const handleCancelChanges = () => {
-    setSelectedStocks([]); // Reset selected stocks
-    navigate("/portfolio"); // Redirect to Portfolio page without any changes
-  };
+        const fetchedData = await response.json();
+
+        const mergedData = fetchedData.map((stockInfo) => {
+          const portfolioEntry = portfolio.find((s) => s.symbol === stockInfo.symbol);
+
+          return {
+            ...stockInfo,
+            averagePrice: portfolioEntry?.purchase_price || 0,
+            shares: portfolioEntry?.shares || 0,
+          };
+        });
+
+        setStockData(mergedData);
+      } catch (error) {
+        console.error("Error fetching stock data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (portfolio.length > 0) {
+      fetchStockData();
+    }
+  }, [portfolio]);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <h1>Edit Portfolio</h1>
-      <Typography variant="h6" color="textSecondary">
-        Select stocks to remove from your portfolio
-      </Typography>
-      <Grid container spacing={2} style={{ marginTop: "20px" }}>
-        {portfolio.map((stock) => (
-          <Grid item xs={12} sm={6} md={4} key={stock.symbol}>
-            <div style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "8px" }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={selectedStocks.includes(stock.symbol)}
-                    onChange={() => handleStockSelection(stock.symbol)}
-                    name={stock.symbol}
-                    color="primary"
-                  />
-                }
-                label={`${stock.name} (${stock.symbol}) - $${stock.current_price}`}
-              />
-            </div>
-          </Grid>
-        ))}
-      </Grid>
-      <div style={{ marginTop: "20px" }}>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={handleCancelChanges}
-        >
-          Cancel
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleAcceptChanges}
-          disabled={selectedStocks.length === 0}
-          style={{ marginRight: "10px" }}
-        >
-          Accept Changes
-        </Button>
-      </div>
+    <div>
+      <h2>Edit Portfolio</h2>
+
+      {loading ? (
+        <CircularProgress />
+      ) : stockData.length === 0 ? (
+        <p>No stocks found in your portfolio.</p>
+      ) : (
+        stockData.map((stock) => (
+          <div key={stock.symbol} style={{ borderBottom: "1px solid gray", marginBottom: "1rem" }}>
+            <h3>{stock.symbol} - {stock.name}</h3>
+            <p>Current Price: ${stock.current_price}</p>
+            <p>Average Purchase Price: ${stock.averagePrice.toFixed(2)}</p>
+            <p>Shares Owned: {stock.shares}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 }
