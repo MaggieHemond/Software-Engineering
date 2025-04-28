@@ -9,13 +9,13 @@ export function PortfolioProvider({ children }) {
   const addStockToPortfolio = (symbol, shares, pricePerShare, name, current_price) => {
     setPortfolio((prevPortfolio) => {
       const existingStock = prevPortfolio.find((stock) => stock.symbol === symbol);
-  
+
       if (existingStock) {
         const newShares = existingStock.shares + shares;
         const newPurchasePrice = (
           (existingStock.shares * existingStock.purchase_price + shares * pricePerShare) / newShares
         );
-  
+
         return prevPortfolio.map((stock) =>
           stock.symbol === symbol
             ? {
@@ -40,16 +40,28 @@ export function PortfolioProvider({ children }) {
         ];
       }
     });
-  };  
+  };
 
   const updateBalance = (value) => {
     setBalance((prev) => (typeof value === "function" ? value(prev) : value));
   };
 
-  const sellStocks = (symbolsToSell) => {
-    setPortfolio((prevPortfolio) =>
-      prevPortfolio.filter((stock) => !symbolsToSell.includes(stock.symbol))
-    );
+  const sellStock = (symbol, sharesToSell, currentPrice) => {
+    setPortfolio((prevPortfolio) => {
+      return prevPortfolio.reduce((newPortfolio, stock) => {
+        if (stock.symbol === symbol) {
+          const remainingShares = stock.shares - sharesToSell;
+          if (remainingShares > 0) {
+            newPortfolio.push({ ...stock, shares: remainingShares });
+          }
+        } else {
+          newPortfolio.push(stock);
+        }
+        return newPortfolio;
+      }, []);
+    });
+
+    setBalance((prevBalance) => prevBalance + sharesToSell * currentPrice);
   };
 
   const updateStockShares = (symbol, newShares) => {
@@ -67,7 +79,7 @@ export function PortfolioProvider({ children }) {
         addStockToPortfolio,
         balance,
         updateBalance,
-        sellStocks,
+        sellStock,
         updateStockShares,
       }}
     >
