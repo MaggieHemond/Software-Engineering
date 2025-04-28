@@ -90,7 +90,7 @@ const BuyPage = () => {
         variant="outlined"
         color="primary"
         onClick={() => navigate(-1)}  
-        style={{ position: "absolute", top: "10px", left: "20px", zIndex: 1 }}
+        style={{ position: "absolute", top: "40px", left: "40px", zIndex: 1 }}
       >
         Back
       </Button>
