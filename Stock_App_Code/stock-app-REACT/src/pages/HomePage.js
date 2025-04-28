@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/HomePage.css';
 import { Link } from "react-router-dom";
-import {Button} from "@mui/material";
-
+import { Button } from "@mui/material";
+import { usePortfolio } from "../components/PortfolioContext";
 
 function HomePage() {
   const [stocksData, setStocksData] = useState([]);
+  const { balance } = usePortfolio();
 
   const stocks_percent_change = (stock) => {
     if (!stock.history || stock.history.length < 2) return null;
@@ -33,12 +34,13 @@ function HomePage() {
     return parseFloat(stocks_percent_change(b)) - parseFloat(stocks_percent_change(a));
   });
 
-  
-
-
   return (
     <div className="homepage-container">
       <h1>Home: Welcome to the Stock App!</h1>
+
+      <div className="total-wealth-box">
+        <h2>Total Wealth: ${balance.toFixed(2)}</h2>
+      </div>
 
       <h2>5 Cool Stocks:</h2>
       {stocksData.length === 0 ? (
@@ -58,21 +60,20 @@ function HomePage() {
 
       <h2>Description of the Stock Tracking App</h2>
       <p>
-        This website helps you build a stock portfolio by analyzing and tracking stock prices. Use the Stocks page to search for specific stocks by symbol, add promising ones to your portfolio, and manage them through the Portfolio page. The Settings page lets you personalize your experienc on the site.
+        This website helps you build a stock portfolio by analyzing and tracking stock prices. Use the Stocks page to search for specific stocks by symbol, add promising ones to your portfolio, and manage them through the Portfolio page. The Settings page lets you personalize your experience on the site.
       </p>
 
       <h2>Exit out of site</h2>
-      <div class="container">
-      <Link 
-        to={"/"}
-        style={{ textDecoration: "none" }}
+      <div className="container">
+        <Link 
+          to={"/"} 
+          style={{ textDecoration: "none" }}
         >
-        <Button variant="contained" color="primary">
-         Log Out
-        </Button>
-      </Link>
+          <Button variant="contained" color="primary">
+            Log Out
+          </Button>
+        </Link>
       </div>
-
     </div>
   );
 }
@@ -87,7 +88,6 @@ const stocks = [
   "NFLX",  // Netflix, Inc.
   "META"   // Meta Platforms, Inc. (Facebook)
 ];
-
 
 /*
 // Global stocks list (moved to the bottom so it doesn't clutter component code)

@@ -37,7 +37,7 @@ function StocksPage() {
       console.log("Stock data:", data);
 
       if (Array.isArray(data)) {
-        return data[0]; // Use the first stock if array is returned
+        return data[0];
       } else if (data.error) {
         alert(data.error);
         return null;
@@ -76,9 +76,6 @@ function StocksPage() {
     }
   };
 
-  /**
-   * Adds the currently selected stock to the list.
-   */
   const handleConfirmAdd = () => {
     if (selectedStock) {
       setStocks((prev) => [...prev, selectedStock]);
@@ -95,7 +92,6 @@ function StocksPage() {
       Type one letter, Type out the symbol of the stock
       </p>
 
-      {/* Autocomplete and manual search input */}
       <div>
         <Autocomplete
           freeSolo
@@ -128,11 +124,33 @@ function StocksPage() {
                 marginRight: "10px",
                 width: "300px",
               }}
+              InputProps={{
+                style: {
+                  color: document.body.classList.contains("dark") ? "#fff" : "#000",
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: document.body.classList.contains("dark") ? "#fff" : "#000",
+                },
+              }}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                  },
+                },
+              }}
             />
           )}
         />
 
-        {/* Button to manually preview stock by symbol */}
         <Button
           variant="contained"
           color="primary"
@@ -149,7 +167,6 @@ function StocksPage() {
         </Button>
       </div>
 
-      {/* Preview card for selected stock */}
       {selectedStock && (
         <div style={{ marginTop: "30px" }}>
           <Typography variant="h6">Preview:</Typography>
@@ -162,7 +179,6 @@ function StocksPage() {
                 ${selectedStock.current_price}
               </Typography>
 
-              {/* Actions for adding or cancelling previewed stock */}
               <div
                 style={{
                   display: "flex",
@@ -191,7 +207,6 @@ function StocksPage() {
         </div>
       )}
 
-      {/* Grid displaying all added stocks */}
       <Grid container spacing={2} style={{ marginTop: "30px" }}>
         {stocks.map((stock) => (
           <Grid item xs={12} sm={6} md={4} key={stock.symbol}>
@@ -204,7 +219,6 @@ function StocksPage() {
                   ${stock.current_price}
                 </Typography>
 
-                {/* Button linking to the buy page */}
                 <div
                   style={{
                     display: "flex",

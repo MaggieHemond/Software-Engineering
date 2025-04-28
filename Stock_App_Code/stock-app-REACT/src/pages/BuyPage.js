@@ -85,39 +85,48 @@ const BuyPage = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
+    <div style={{ textAlign: "center", marginTop: "20px", padding: "0 20px" }}>
       <Button
         variant="outlined"
         color="primary"
-        onClick={() => navigate(-1)}  
-        style={{ position: "absolute", top: "10px", left: "20px", zIndex: 1 }}
+        onClick={() => navigate(-1)}
+        style={{
+          position: "absolute",
+          top: "40px",
+          left: "40px",
+          zIndex: 1,
+          borderRadius: "8px",
+          padding: "8px 16px",
+        }}
       >
         Back
       </Button>
-
-      <h1>{stockData.name} ({stockData.symbol})</h1>
-
-      <Card style={{ marginBottom: "20px" }}>
+  
+      <h1 style={{ fontSize: "1.8rem", marginBottom: "30px" }}>
+        {stockData.name} ({stockData.symbol})
+      </h1>
+  
+      <Card style={{ marginBottom: "20px", borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
         <CardContent>
-          <Typography variant="h6">Your Balance</Typography>
-          <Typography variant="body2">${balance.toFixed(2)}</Typography>
+          <Typography variant="h6" style={{ marginBottom: "10px" }}>Your Balance</Typography>
+          <Typography variant="body2" style={{ fontSize: "1.2rem" }}>${balance.toFixed(2)}</Typography>
         </CardContent>
       </Card>
-
-      <Grid container spacing={2} justifyContent="center">
+  
+      <Grid container spacing={2} justifyContent="center" style={{ marginBottom: "30px" }}>
         <Grid item xs={12} md={6}>
-          <Card>
+          <Card style={{ borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
             <CardContent>
               <Typography variant="h6">Current Price</Typography>
-              <Typography variant="body2">${stockData.current_price}</Typography>
-              <Typography variant="h6">Last Updated</Typography>
+              <Typography variant="body2" style={{ fontSize: "1.2rem" }}>${stockData.current_price}</Typography>
+              <Typography variant="h6" style={{ marginTop: "10px" }}>Last Updated</Typography>
               <Typography variant="body2">{stockData.date}</Typography>
             </CardContent>
           </Card>
         </Grid>
-
+  
         <Grid item xs={12} md={6}>
-          <Card>
+          <Card style={{ borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
             <CardContent>
               <Typography variant="h6">Price History (Last 30 Days)</Typography>
               <Line data={chartData} />
@@ -125,14 +134,18 @@ const BuyPage = () => {
           </Card>
         </Grid>
       </Grid>
-
+  
       <div style={{ marginTop: "30px" }}>
         <Typography variant="h6">Choose Purchase Mode:</Typography>
         <Button
           variant={purchaseMode === "amount" ? "contained" : "outlined"}
           color="primary"
           onClick={() => setPurchaseMode("amount")}
-          style={{ marginRight: "10px" }}
+          style={{
+            marginRight: "10px",
+            borderRadius: "8px",
+            padding: "8px 16px",
+          }}
         >
           Buy with Amount ($)
         </Button>
@@ -140,11 +153,15 @@ const BuyPage = () => {
           variant={purchaseMode === "quantity" ? "contained" : "outlined"}
           color="secondary"
           onClick={() => setPurchaseMode("quantity")}
+          style={{
+            borderRadius: "8px",
+            padding: "8px 16px",
+          }}
         >
           Buy with Quantity
         </Button>
       </div>
-
+  
       <div style={{ marginTop: "20px" }}>
         {purchaseMode === "amount" ? (
           <TextField
@@ -155,6 +172,29 @@ const BuyPage = () => {
             fullWidth
             variant="outlined"
             style={{ marginBottom: "20px" }}
+            InputProps={{
+              style: {
+                color: document.body.classList.contains("dark") ? "#fff" : "#000",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: document.body.classList.contains("dark") ? "#fff" : "#000",
+              },
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                },
+                "&:hover fieldset": {
+                  borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                },
+              },
+            }}
           />
         ) : (
           <TextField
@@ -165,22 +205,51 @@ const BuyPage = () => {
             fullWidth
             variant="outlined"
             style={{ marginBottom: "20px" }}
+            InputProps={{
+              style: {
+                color: document.body.classList.contains("dark") ? "#fff" : "#000",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: document.body.classList.contains("dark") ? "#fff" : "#000",
+              },
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                },
+                "&:hover fieldset": {
+                  borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: document.body.classList.contains("dark") ? "#fff" : "#000",
+                },
+              },
+            }}
           />
         )}
-
-        {error && <Alert severity="error">{error}</Alert>}
-
+  
+        {error && <Alert severity="error" style={{ marginBottom: "20px" }}>{error}</Alert>}
+  
         <Button
           variant="contained"
           color="success"
           onClick={handleBuy}
-          style={{ marginTop: "20px" }}
+          style={{
+            marginTop: "20px",
+            borderRadius: "8px",
+            padding: "10px 20px",
+            width: "100%",
+            fontSize: "1rem",
+          }}
         >
           Confirm Purchase
         </Button>
       </div>
     </div>
-  );
+  );  
 };
 
 export default BuyPage;

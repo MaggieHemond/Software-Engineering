@@ -52,6 +52,19 @@ body, html{
     flex: 1 1 calc(33% - 40px);
     box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
 }
+
+/* Green box for Total Wealth */
+.total-wealth-box {
+    background-color: #28a745;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 30px;
+    font-family: Garamond;
+}
+
 /*#4169E1 a darker blue
 gradient*/
 
