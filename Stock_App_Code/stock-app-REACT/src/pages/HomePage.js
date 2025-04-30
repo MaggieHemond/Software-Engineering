@@ -62,7 +62,7 @@ function HomePage() {
       <p>
         This website helps you build a stock portfolio by analyzing and tracking stock prices. Use the Stocks page to search for specific stocks by symbol, add promising ones to your portfolio, and manage them through the Portfolio page. The Settings page lets you personalize your experience on the site.
       </p>
-
+      
       <h2>Exit out of site</h2>
       <div className="container">
         <Link 

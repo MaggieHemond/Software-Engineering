@@ -88,8 +88,8 @@ function StocksPage() {
       <h1>Stock Market</h1>
 
       <p>
-      Explain how search works:
-      Type one letter, Type out the symbol of the stock
+      How search works:
+      Type one letter to get list of stocks that start with it or type out the symbol of the stock.
       </p>
 
       <div>
