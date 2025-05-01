@@ -1,0 +1,112 @@
+
+/* full-screen dark gradient */
+.auth-page {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* semi-transparent blur container */
+  .glass-card {
+    background: rgba(15,23,42,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    padding: 2rem;
+    max-width: 400px;
+    margin: auto;
+  }
+
+
+  /*NOTE: these below tried to remvoe the boarder to no luck*/
+
+  /* remove the border on glass-card for auth pages */
+.auth-page .glass-card {
+    border: none !important;
+  }
+  
+  /* if you also get a border on the inputs, you can remove them too */
+  .auth-page .input-field {
+    border: none !important;
+  }
+  
+  /* dark input fields */
+  .input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background: rgba(30,41,59,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  .input-field:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96,165,250,0.2);
+  }
+  
+  /* primary button */
+  .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg,#3b82f6 0%,#6366f1 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(59,130,246,0.3);
+  }
+  
+  /* subtle fade-in for the card */
+  .fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* optional: animated pulse line at bottom */
+  .stock-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.3) 50%, transparent 100%);
+    animation: stockPulse 8s infinite ease-in-out;
+  }
+  @keyframes stockPulse {
+    0% { opacity: 0.2; transform: scaleY(0.8); }
+    50% { opacity: 0.5; transform: scaleY(1.2); }
+    100% { opacity: 0.2; transform: scaleY(0.8); }
+  }
+  /* and if you want the “points”: */
+  .stock-point {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3b82f6;
+    box-shadow: 0 0 10px rgba(59,130,246,0.8);
+    animation: stockPointPulse 3s infinite ease-in-out;
+  }
+  @keyframes stockPointPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50%{ transform: scale(1.3); opacity: 1; }
+   100%{ transform: scale(1); opacity: 0.8; }
+  }
+  
