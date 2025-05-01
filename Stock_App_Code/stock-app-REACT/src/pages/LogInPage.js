@@ -58,7 +58,7 @@ export default function LogInPage() {
         </form>
 
         <p style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-          Don’t have an account?{" "}
+          Don't have an account?{" "}
           <Link to="/signup" style={{ color: "#60a5fa", textDecoration: "underline" }}>
             Create one
           </Link>
